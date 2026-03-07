@@ -73,4 +73,4 @@ Somente aqui o código escrito pelo programador é executado. O `fstat` verifica
 
 > **Nota Final:** das dezenas de syscalls exibidas pelo `strace`, apenas `write` e `exit_group` correspondem ao código escrito pelo programador. Todas as demais são geradas pela infraestrutura que o SO, o ligador dinâmico e a `libc` constroem automaticamente.
 
-[Retornar à atividade](README.md)
+[Retornar à atividade](README.md#7---executando-com-strace) | [Retornar ao início da atividade](README.md) 
