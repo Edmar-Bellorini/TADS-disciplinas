@@ -335,7 +335,7 @@ Utilizando os conceitos apresentados nesta atividade, escreva um programa em Ass
 - Não utilizar nenhuma função de biblioteca externa
 - Montar com `as` e ligar com `ld`
 - Executar com `strace` e verificar se as quatro syscalls aparecem na saída
-- O arquivo `saida.txt` deve ser aberto ou criado com a `flag de criação e somente para escrita (101o)` e com permissões `-rw-rw-r (0664o)`
+- O arquivo `saida.txt` deve ser aberto ou criado com a `flag de criação e somente para escrita (0101)` e com permissões `-rw-rw-r (0664)`
 
 #### Dicas
 
