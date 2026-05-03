@@ -44,7 +44,7 @@ Porém faltava um componente central: o **kernel** do sistema operacional. Inici
 
 <div style="text-align: center;">
 
-<img src="./imagens/projetoGNU01.svg" width="60%" height="60%">
+<img src="./imagens/projetoGNU01.svg" width="50%" height="50%">
 
 *Reprodução: autor*
 </div>
@@ -83,7 +83,7 @@ Sendo as principais responsabilidades:
 
 <div style="text-align: center;">
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" width="15%" height="15%">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" width="10%" height="10%">
 
 *Reprodução: [Wikipedia - Linux](https://pt.wikipedia.org/wiki/Tux#/media/Ficheiro:Tux.svg)*
 </div>
@@ -123,7 +123,7 @@ Algumas **Distribuições *upstream*** (base) e ***downstream*** (derivadas) sã
 
 <div style="text-align: center;">
 
-<img src="./imagens/base e derivacoes.svg" width="80%" height="80%">
+<img src="./imagens/base e derivacoes.svg" width="70%" height="70%">
 
 *Reprodução: autor*
 </div>
@@ -140,9 +140,7 @@ Algumas **Distribuições *upstream*** (base) e ***downstream*** (derivadas) sã
 
 
 
-| | | |
-|:---:|:---:|:---:|
-|[↑ voltar ao topo](#introdução-a-história-do-linux)|[⌂ página inicial](README.md)|[→ sobre terminal](terminal.md)|
+|[↑ voltar ao topo](#introdução-a-história-do-linux)|[⌂ página inicial](README.md)|[→ 2. Terminal](terminal.md)|
 
 
 ## 2 - REFERÊNCIAS
@@ -153,7 +151,7 @@ DISTROWATCH. Beginner's guide. [S.l.]: DistroWatch, [2001]. Disponível em: http
 
 FREE SOFTWARE FOUNDATION. Philosophy of the GNU Project. [S.l.]: Free Software Foundation, [1996]. Disponível em: https://www.gnu.org/philosophy/philosophy.html. Acesso em: 19 de abril de 2026.
 
-FREE SOFTWARE FOUNDATION. GNU/Linux FAQ. [S.l.]: Free Software Foundation, [1997]. Disponível em: https://www.gnu.org/gnu/gnu-linux-faq.html#windows. Acesso em: 18 de abril de 2025.
+FREE SOFTWARE FOUNDATION. GNU/Linux FAQ. [S.l.]: Free Software Foundation, [1997]. Disponível em: https://www.gnu.org/gnu/gnu-linux-faq.html. Acesso em: 18 de abril de 2025.
 
 HOLBROOK, Bernard D.; BROWN, W. Stanley. A history of computing research at Bell Laboratories (1937-1975). Murray Hill: Bell Telephone Laboratories, 1982. (Computing Science Technical Report, n. 99). Disponível em: https://archive.computerhistory.org/resources/access/text/2022/08/102804421-05-01-acc.pdf. Acesso em: 18 de abril de 2026.
 
