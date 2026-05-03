@@ -139,19 +139,11 @@ Algumas **Distribuições *upstream*** (base) e ***downstream*** (derivadas) sã
 
 
 
-<div class="tabela-container" >
 
 | | | |
 |:---:|:---:|:---:|
 |[↑ voltar ao topo](#introdução-a-história-do-linux)|[⌂ página inicial](README.md)|[→ sobre terminal](terminal.md)|
-</div>
 
-<style>
-.tabela-container table {
-  width: 100%;
-  border-collapse: collapse;
-}
-</style>
 
 ## 2 - REFERÊNCIAS
 
