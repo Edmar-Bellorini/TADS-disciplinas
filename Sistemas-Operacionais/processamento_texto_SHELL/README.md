@@ -276,7 +276,7 @@ Os principais argumentos são:
 | -c        | conta quantas linhas contém o padrão pesquisado                    |
 | -w        | procura a palavra inteira                                          |
 | -x        | procura por linha inteira                                          |
-| -E        | habilita expressões regulares (equivalente ao comando `egrep`)     | 
+| -E        | habilita expressões regulares      | 
 | -r        | pesquisa em diretório (varios arquivos)                            |
 
 No `padrão a ser procurado`, podemos utilizar algumas expressões de âncora e limitadores
