@@ -23,8 +23,8 @@ A ideia de processamento de texto em Bash é reduzir problemas complexos em prob
 | `cut`   | extrai campos ou colunas |
 | `sort`  | ordena linhas |
 | `uniq`  | remove linhas duplicadas  |
-| `sed`   | transformação básica em textos |
 | `grep`  | filtra linhas com base em algum padrão |
+| `sed`   | transformação básica em textos |
 | `awk`   | filtra, extrai, transforma textos (é uma linguagem de programação)
 
 ---
@@ -279,27 +279,37 @@ Os principais argumentos são:
 | -E        | habilita expressões regulares      | 
 | -r        | pesquisa em diretório (varios arquivos)                            |
 
-No `padrão a ser procurado`, podemos utilizar algumas expressões de âncora e limitadores
+No `padrão a ser procurado`, podemos utilizar algumas expressões de âncora, quantificadores e limitadores
 | Argumento | Descrição | Exemplo  | Observação |
 |:---------:|-----------|-----------|-----------|
 | `^`     | âncora de início de linha | ^Erro | linhas que iniciam com "Erro"     |
 | `$`     | âncora de fim de linha    | erro$ | linhas que terminam com "erro"    |
 | `.`     | qualquer caractere        | c.t   | exemplos válidos: `cat` e `clt`   |
 | `*`     | zero ou mais ocorrencias  | c.*t  | exemplos válidos: `ct`, `cat` e `count` |
-| `[0-9]` | qualquer dígito           | [0-9]  | `0` até `9`                      |
-| `[a-z]` | qualquer caractere minúsculo | [a-z]  | `a` até `z`                   |
-| `[A-Z]` | qualquer caractere MAIÚSCULO | [A-Z]  | `A` até `Z`                   |
-| `[a-Z]` | qualquer caractere        | [a-Z]  | `A` até `Z`                      |
 | `[^x]`  | exceto o conjunto `x`     | [^8-9] | excluí digitos de `8` até `9`    |
 | `\x`    | caractere especial `x`    | [\\.]   | linhas que contém `.`           |
 | `\b`    | limitador de palavra      | [\bcat\b]   | linhas que contém `cat`     |
 
+Podemos extender o comando `grep` com o argumento `-E` que permite uma melhor utilização dos agrupadores do tipo 
+- `colchetes`: corresponde à qualquer um dos caracteres
+- `parenteses`: corresponde à sequência de caracteres
+Onde as principais alterações do `padrão a ser procurado` são:
 
-Podemos extender o comando `grep`, para se comportar como `egrep` com o argumento `-E`, sendo as principais:
 | Argumento | Descrição | Exemplo  | Observação |
 |:---------:|-----------|-----------|-----------|
-| `+`     | uma ou mais ocorrencias  | c.*t  | exemplos válidos: `cat` e `count`      |
-| `\|`    | operador `OR`  | [a\|b]   | linhas que contém `a` ou `b`                  |
+| `[0-9]` | qualquer dígito           | [0-9]  | `0` até `9`                      |
+| `[a-z]` | qualquer caractere minúsculo | [a-z]  | `a` até `z`                   |
+| `[A-Z]` | qualquer caractere MAIÚSCULO | [A-Z]  | `A` até `Z`                   |
+| `[a-Z]` | qualquer caractere        | [a-Z]  | `A` até `Z`                      |
+| `(abc)` | somente a sequência `abc` | (abc)  | exemplos válidos: `aabcde` e `?abc_` |
+| `(\(a\))`| somente a sequência `(abc)` | | a `\` foi usada para *escapar* os parênteses, isto é, `grep -E` entenderá os parênteses como caracteres |
+
+e os modificadores quantitativos são: 
+
+| Argumento | Descrição | Exemplo  | Observação |
+|:---------:|-----------|-----------|-----------|
+| `+`     | uma ou mais ocorrencias  | c+t  | exemplos válidos: `cat` e `cccat`      |
+| `\|`    | operador `OR`  | (a\|b)   | linhas que contém `a` ou `b`                  |
 | `{n}`   | `n` ocorrências do padrão | [0-9]{3} | válidos: 999, 365 e 000            |
 | `{n,m}` | `n` até `m` ocorrências do padrão | [0-9]{2,4} | válidos: 99, 365 e 0001  |
 | `{n,}`  | mínimo de `n` ocorrências do padrão | [0-9]{2,} | válidos: 99, 365,  0001 e 1365971  |
@@ -314,6 +324,11 @@ Podemos extender o comando `grep`, para se comportar como `egrep` com o argument
 > Encontrar o nome `cloud` em algum arquivo do diretório atual
 ```bash
 grep -ri "cloud" .
+```
+
+> Encontrar o nome `cloud` ou `yuna` em algum arquivo do diretório atual
+```bash
+grep -riE "(cloud|yuna)" .
 ```
 
 > Encontrar o nome do processador da máquina em utilização 
@@ -333,6 +348,10 @@ cat \proc\cpuinfo | grep "model name" | uniq
 grep -rnE "[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" .
 ```
 
+> Mesmo sendo texto, é possível *tapacear* e encontrar linhas do arquivo `exemplo.sort.txt` com salários maiores ou iguais que `6000` 
+```bash
+grep -rE "(\b[0-9]*[6-9].{3}\b)" exemplo.sort.txt
+```
 
 ## 6. Exercício
 
@@ -355,6 +374,11 @@ unzip IBGE_Censo_Demográfico_Tabela_2_Nivel_de_instrucao.zip
 Utilize somente um ou mais comandos estudados até este momento:
 - `wc`, `cut`, `sort`, `uniq`, `grep` 
 - não esqueça do PIPE `|`
+- são duas buscas, porém, uma dica para aproveitar e encontrar as linhas com `Cascavel` e `Corbélia` é:
+```bash
+grep -iE "(corb.lia|cascavel) \(PR\)" IBGE_Censo_Demográfico_Tabela_2_Nivel_de_instrucao.csv
+```
+
 
 ---
 
