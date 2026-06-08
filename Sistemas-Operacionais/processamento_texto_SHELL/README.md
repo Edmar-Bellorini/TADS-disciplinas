@@ -10,7 +10,9 @@
 3. [Comandos `sort` e `uniq`](#3-comandos-sort-e-uniq)
 4. [Usando PIPE `|` para conectar `sort` com `uniq`](#4-usando-pipe--para-conectar-sort-com-uniq)
 5. [Comando `grep`](#5-comando-grep)
-6. [Exercício](#6-exercício)
+6. [Exercício](#6-exercício-com-wc-cut-sort-uniq-grep)
+7. [Comando `sed`](#7-comando-sed)
+8. [Exercício](#8-exercício-para-grep-e-sed)
 
 ---
 
@@ -25,7 +27,7 @@ A ideia de processamento de texto em Bash é reduzir problemas complexos em prob
 | `uniq`  | remove linhas duplicadas  |
 | `grep`  | filtra linhas com base em algum padrão |
 | `sed`   | transformação básica em textos |
-| `awk`   | filtra, extrai, transforma textos (é uma linguagem de programação)
+|~~`awk`~~   | ~~filtra, extrai, transforma textos (é uma linguagem de programação)~~
 
 ---
 
@@ -353,7 +355,7 @@ grep -rnE "[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" .
 grep -rE "(\b[0-9]*[6-9].{3}\b)" exemplo.sort.txt
 ```
 
-## 6. Exercício
+## 6. Exercício com `wc`, `cut`, `sort`, `uniq`, `grep` 
 
 O arquivo `IBGE_Censo_Demográfico_Tabela_2_Nivel_de_instrucao.csv` contém dados do censo de 2022 sobre o nível de instrução dos brasileiros. As colunas desta tabela são:
 
@@ -388,7 +390,132 @@ grep -iE "(corb.lia|cascavel) \(PR\)" IBGE_Censo_Demográfico_Tabela_2_Nivel_de_
 
 ## 7. Comando `sed`
 
-*to-do*
+O comando `sed` é uma ferramenta para editar e processar texto diretamente no terminal ou em arquivos. Este opera com base em expressões regulares e pode realizar diversas tarefas, incluindo substituição de texto, exclusão de linhas e inserção de conteúdo.
+
+Por padrão, o fluxo de execução do comando `sed` é:
+
+1. Lê linha do arquivo
+2. Executa o comando nesta linha
+3. Vai para próxima linha
+4. Repete 1.
+
+Sintaxe
+```bash
+sed [argumentos] 'comando' arquivo
+```
+
+Os principais argumentos são:
+
+| Argumento | Descrição |
+|:---------:|-----------|
+| `-n`      | Não imprime na saída padrão (modo silencioso) |
+| `-z`      | Indica o caractere `NULL` como separador de linhas |
+| `-E`      | Habilita o uso de expressões regulares (use aspas simples `'` com delimitador) |
+| `-i`      | **ATENÇÃO:** Executa processamento no próprio arquivo (modo destrutivo) |
+| `-i.bak`  | `-i`, porém, cria arquivo de backup `.bak` |
+
+E as principais ações executadas em `comando` são:
+
+| Ação | Descrição |
+|:---------:|-----------| 
+| `s/padrãobuscado/substituto/` | Substitui a **primeira** ocorrência de `padrãobuscado` por `substituto` |
+| `/padrãobuscado/d`       | Deleta a linha que contém `padrãobuscado`  |
+| `/padrãobuscado/i padrãoinserção` | Insere `padrãoinserção` antes das linhas com `padrãobuscado` |
+| `/padrãobuscado/a padrãoinserção` | Insere `padrãoinserção` após as linhas com `padrãobuscado` |
+| `comando/g`      | aplica `comando` em todas as ocorrências da linha |
+| `comando/p`      | quando usado com argumento `-n`, imprime somente a linha que contém p `comando` | 
+
+
+As âncoras `^`, `$`, `*` estudadas no comando `grep` também podem ser usadas com o comando `sed`. Também pode ser usado o caractere de escape `\`, por exemplo, para escapar espaços em branco (`\ `) 
+
+Também existem os quantificadores, porém, diferentemente do comando `grep`, que faz uso de limitadores `{` e `}`, o comando `sed` requer a indicação antes das ações, podendo inclusive, substituir o `padrãobuscado` em alguns casos.
+
+E para encerrar esta introdução sobre o comando `sed`, também é possível utilizar alguns recursos de expressão regular, como `[` e `]`, para encontrar um dos padrões, e `(` e `)`, para expressões um pouco mais complexas.
+
+#### Exemplos com `sed`
+
+> Inserir o nome `leonis` antes de `Noctis`
+```bash
+sed '/Noctis/i leonis' exemplo.sort.txt
+```
+
+O resultado será apresentado no próprio terminal, mantendo o arquivo original intacto (ação não destrutiva)
+
+> Inserir o nome `leonis` antes de `Noctis` diretamente no arquivo `exemplo.sort.txt`, porém, criando um backup
+```bash
+sed -i.bak '/Noctis/i leonis' exemplo.sort.txt
+```
+
+**Importante:** o argumento `-i` é seguido de `.bak` como convenção. Por exemplo, o argumento `-i.backup` é válido.
+
+> Substituir a nova entrada `leonis` por `Cor Leonis,45,12300` no arquivo exemplo
+
+```bash
+sed -i 's/leonis/Cor\ Leonis,45,12300/' exemplo.sort.txt
+```
+
+> Remover linhas em branco encontradas no arquivo `exemplo.sort.txt` sem alterá-lo (sem argumento `-i`)
+```bash
+sed '/^$/d' exemplo.sort.txt
+```
+
+> Imprimir somente a linha que ocorre a substituição (não destrutivo)
+```bash
+sed -n 's/Terra/Tera/p' exemplo.sort.txt
+```
+
+> Imprimir somente a décima linha do arquivo `exemplo.sort.txt` (não destrutivo)
+```bash
+sed -n '10p' exemplo.sort.txt
+``` 
+
+> Imprimir as linhas entre 6 e 9 do arquivo `exemplo.sort.txt` (não destrutivo)
+```bash
+sed -n '6,9p' exemplo.sort.txt
+``` 
+
+> Remover um espaço em branco no início das linhas do arquivo `exemplo.sort.txt` (não destrutivo)
+```bash
+sed 's/^ //' exemplo.sort.txt
+```
+
+> Remover linhas que contém somente espaço(s) em branco do arquivo `exemplo.sort.txt` (não destrutivo)
+```bash
+sed '/^ *$/d' exemplo.sort.txt
+```
+> Remover linhas que contém somente espaço(s) em branco ou Tabulação(ões) (não destrutivo)
+```bash
+sed '/^[ \t]*$/d' exemplo.sort.txt
+```
+
+> Remover os caracteres especiais dos nomes (não presenva acentuação) (não destrutivo)
+```bash
+sed 's/[^a-zA-Z,0-9 ]//g' exemplo.sort.txt
+```
+**Uma última explicação**
+É tentador, neste momento, executar vários comandos `sed` utilizando `PIPE`para resolver vários problemas em um arquivo, por exemplo:
+
+> Remover a linha em branco, a linha que contém espaços em branco, o espaço em branco no início do nome, os caracteres especiais, ordenar, remover duplicidade utilizando comandos `sed`, `sort` e `uniq`
+```bash
+sed '/^$/d' exemplo.sort.txt | sed '/^ *$/d' | sed 's/^ //' | sed 's/[^a-zA-Z,0-9 ]//g' | sort | uniq
+```
+Porém, o comando `sed` permite concatenar `comandos` utilizando o separador `;`. Para este exemplo, ainda precisamos usar o `PIPE` para ordenar com `sort` e remover duplicidade `duplicidade`
+```bash
+sed '/^$/d ; /^ *$/d ; s/^ // ; s/[^a-zA-Z,0-9 ]//g' exemplo.sort.txt | sort | uniq
+```
+
+## 8. Exercício para `grep` e `sed`
+
+Utilizando novamente o arquivo `IBGE_Censo_Demográfico_Tabela_2_Nivel_de_instrucao.csv`, que contém a seguinte tabela:
+
+| Localidade | TOTAL sem instrução | TOTAL médio incompleto | TOTAL superior incompleto | TOTAL superior completo | HOMEM sem instrução | HOMEM médio incompleto | HOMEM superior incompleto | HOMEM superior completo | MULHER sem instrução | MULHER médio incompleto | MULHER superior incompleto | MULHER superior completo |
+|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+
+Execute em uma única linha de comando do `SHELL`:
+1. extraia todas as linhas que contém municípios do Parana, indicadas por `(PR)`
+2. Remova a entrada `(PR)`
+3. Ordene
+4. Grave no arquivo `IBGE_Censo_Demográfico_Tabela_2_Nivel_de_instrucao_PARANA.csv`
 
 
 
