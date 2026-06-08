@@ -515,7 +515,8 @@ Execute em uma única linha de comando do `SHELL`:
 1. extraia todas as linhas que contém municípios do Parana, indicadas por `(PR)`
 2. Remova a entrada `(PR)`
 3. Ordene
-4. Grave no arquivo `IBGE_Censo_Demográfico_Tabela_2_Nivel_de_instrucao_PARANA.csv`
+4. Remova duplicidades
+5. Grave no arquivo `IBGE_Censo_Demográfico_Tabela_2_Nivel_de_instrucao_PARANA.csv`
 
 
 
